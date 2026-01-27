@@ -62,6 +62,7 @@
                     <th>Status</th>
                     <th>Date</th>
                     <th>Time</th>
+                    <th>Action</th>
                 </tr>
 
                 {% for ip in available_static %}
@@ -70,10 +71,16 @@
                     <td>{{ ip.get_status_display }}</td>
                     <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
                     <td>{{ ip.updated_at|date:"g:i A" }}</td>
+                    <td class="flex">
+                        <form action="{% url 'reserve_ip' ip.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="reserve-btn">Reserve</button>
+                        </form>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4">No available static IPs found.</td>
+                    <td colspan="5">No available static IPs found.</td>
                 </tr>
                 {% endfor %}
             </table>

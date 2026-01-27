@@ -97,3 +97,32 @@ td {
   background: #dbeafe;
   color: #1e40af;
 }
+
+/* Reserve Button */
+.flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border: none;
+
+}
+.reserve-btn {
+  background: #79aec8;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.2s ease-in-out;
+
+}
+
+.reserve-btn:hover {
+  background: #417690;
+}
+
+.reserve-btn:active {
+  transform: scale(0.98);
+}
