@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Website title -->
+    <title>Static IP Reservation</title>
+</head>
+<body>
+    <!-- Header -->
+    <header style="padding: 15px; border-bottom: 2px solid #ccc;">
+        <h1>DHCP and Static IP Address Management</h1>
+    </header>
+
+     <!-- Main Content -->
+    <main">
+        <!-- DHCP Section -->
+        <section id="dhcp-section">
+            <h2>DHCP Address List</h2>
+
+            <table border="1" cellpadding="5">
+                <tr>
+                    <th>IP Address</th>
+                    <th>Hostname</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+
+                {% for ip in dhcp_addresses %}
+                <tr>
+                    <td>{{ ip.ip_address }}</td>
+                    <td>{{ ip.hostname|default:"-" }}</td>
+                    <td>{{ ip.get_status_display }}</td>
+                    <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
+                    <td>{{ ip.updated_at|date:"g:i A" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">No DHCP address found.</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+
+        <!-- Future sections-->
+       
+    </main>
+</body>
+</html>
