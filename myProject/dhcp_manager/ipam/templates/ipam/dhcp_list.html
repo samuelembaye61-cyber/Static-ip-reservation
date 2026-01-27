@@ -1,20 +1,23 @@
 
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS Link -->
+     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!-- Website title -->
     <title>Static IP Reservation</title>
 </head>
 <body>
     <!-- Header -->
-    <header style="padding: 15px; border-bottom: 2px solid #ccc;">
+    <header>
         <h1>DHCP and Static IP Address Management</h1>
     </header>
 
      <!-- Main Content -->
-    <main">
+    <main>
         <!-- DHCP Section -->
         <section id="dhcp-section">
             <h2>DHCP Address List</h2>
@@ -32,7 +35,11 @@
                 <tr>
                     <td>{{ ip.ip_address }}</td>
                     <td>{{ ip.hostname|default:"-" }}</td>
-                    <td>{{ ip.get_status_display }}</td>
+                    <td>
+                        <span class="status-badge status-{{ ip.status }}">
+                        {{ ip.get_status_display }}
+                        </span>
+                    </td>
                     <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
                     <td>{{ ip.updated_at|date:"g:i A" }}</td>
                 </tr>
