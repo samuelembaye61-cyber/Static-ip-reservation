@@ -9,7 +9,8 @@ class IPAddress(models.Model):
         max_length=20,
         choices=[
             ('dhcp', 'DHCP'),
-            ('static', 'Static'),
+            ('available', 'Available (Static Pool)'),
+            ('reserved', 'Reserved (Static In Use)'),
         ],
         default='dhcp'
     )
@@ -17,7 +18,7 @@ class IPAddress(models.Model):
 
     class Meta:
         verbose_name = "DHCP Address"
-        verbose_name_plural = "DHCP Addresses"
+        verbose_name_plural = "IP Addresses"
 
 def __str__(self):
-    return self.ip_address
+    return str(self.ip_address)

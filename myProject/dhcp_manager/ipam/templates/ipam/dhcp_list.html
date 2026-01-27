@@ -1,22 +1,23 @@
-
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS Link -->
-     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!-- Website title -->
     <title>Static IP Reservation</title>
 </head>
+
 <body>
     <!-- Header -->
     <header>
         <h1>DHCP and Static IP Address Management</h1>
     </header>
 
-     <!-- Main Content -->
+    <!-- Main Content -->
     <main>
         <!-- DHCP Section -->
         <section id="dhcp-section">
@@ -37,7 +38,7 @@
                     <td>{{ ip.hostname|default:"-" }}</td>
                     <td>
                         <span class="status-badge status-{{ ip.status }}">
-                        {{ ip.get_status_display }}
+                            {{ ip.get_status_display }}
                         </span>
                     </td>
                     <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
@@ -51,8 +52,63 @@
             </table>
         </section>
 
-        <!-- Future sections-->
-       
+        <!-- Section B Available Static IP Pool -->
+        <section id="available-section" style="margin-top: 30px;">
+            <h2>Available Static IP Pool</h2>
+
+            <table border="1" cellpadding="5">
+                <tr>
+                    <th>IP Address</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+
+                {% for ip in available_static %}
+                <tr>
+                    <td>{{ ip.ip_address }}</td>
+                    <td>{{ ip.get_status_display }}</td>
+                    <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
+                    <td>{{ ip.updated_at|date:"g:i A" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No available static IPs found.</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+
+        <!-- Section C Reserved section -->
+        <section id="reserved-section" style="margin-top: 30px;">
+            <h2>Reserved Static IPs</h2>
+
+            <table border="1" cellpadding="5">
+                <tr>
+                    <th>IP Address</th>
+                    <th>Hostname</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+
+                {% for ip in reserved_static %}
+                <tr>
+                    <td>{{ ip.ip_address }}</td>
+                    <td>{{ ip.hostname|default:"-" }}</td>
+                    <td>{{ ip.get_status_display }}</td>
+                    <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
+                    <td>{{ ip.updated_at|date:"g:i A" }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">No reserved static IPs found.</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </section>
+
     </main>
 </body>
+
 </html>

@@ -41,7 +41,7 @@ section {
 }
 
 /* Section title */
-#dhcp-section h2 {
+section h2 {
   margin-top: 0;
   font-size: 20px;
   border-left: 25px solid #417690;
