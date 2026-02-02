@@ -80,7 +80,7 @@ td {
   border-bottom: 1px solid #e5e7eb;
 }
 
-/* Small badge */
+/* Small badge for dhcp */
 .status-badge {
   padding: 5px 10px;
   font-size: 12px;
@@ -93,10 +93,6 @@ td {
   color: #166534;
 }
 
-.status-static {
-  background: #dbeafe;
-  color: #1e40af;
-}
 
 /* Reserve Button */
 .flex{
@@ -125,4 +121,70 @@ td {
 
 .reserve-btn:active {
   transform: scale(0.98);
+}
+
+/* Release Button */
+
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-block;
+}
+
+
+/* Available badge (GREEN) */
+.status-available {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* Reserved badge (RED) */
+.status-reserved {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Summary card for 3 tables */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 20px 0 22px;
+  max-width: 1000px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  /* border: 5px solid #417690; */
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.card p {
+  margin: 12px 0 0;
+  font-size: 52px;
+  font-weight: 500;
+}
+
+.card.dhcp p {
+  color: lightgreen;
+}
+
+.card.available p {
+  color: lightgreen;
+}
+
+.card.reserved p {
+  color: #dc2626;
 }

@@ -14,6 +14,10 @@ def dhcp_list(request):
         'dhcp_addresses': dhcp_addresses,
         'available_static': available_static,
         'reserved_static': reserved_static,
+
+        "dhcp_count": dhcp_addresses.count(),
+        "available_count": available_static.count(),
+        "reserved_count": reserved_static.count(),
     })
 
 

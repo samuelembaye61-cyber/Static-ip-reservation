@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS Link -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}? v=2">
     <!-- Website title -->
     <title>Static IP Reservation</title>
 </head>
@@ -19,6 +19,22 @@
 
     <!-- Main Content -->
     <main>
+        <section class="summary-cards">
+            <div class="card dhcp">
+                <h3>Total DHCP</h3>
+                <p>{{ dhcp_count }}</p>
+            </div>
+
+            <div class="card available">
+                <h3>Available Static</h3>
+                <p>{{ available_count }}</p>
+            </div>
+
+            <div class="card reserved">
+                <h3>Reserved Static</h3>
+                <p>{{ reserved_count }}</p>
+            </div>
+        </section>
         <!-- DHCP Section -->
         <section id="dhcp-section">
             <h2>DHCP Address List</h2>
@@ -46,7 +62,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="3">No DHCP address found.</td>
+                    <td colspan="5">No DHCP address found.</td>
                 </tr>
                 {% endfor %}
             </table>
@@ -68,7 +84,11 @@
                 {% for ip in available_static %}
                 <tr>
                     <td>{{ ip.ip_address }}</td>
-                    <td>{{ ip.get_status_display }}</td>
+                    <td>
+                        <span class="status-badge status-{{ ip.status }}">
+                            {{ ip.get_status_display }}
+                        </span>
+                    </td>
                     <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
                     <td>{{ ip.updated_at|date:"g:i A" }}</td>
                     <td class="flex">
@@ -103,7 +123,11 @@
                 <tr>
                     <td>{{ ip.ip_address }}</td>
                     <td>{{ ip.hostname|default:"-" }}</td>
-                    <td>{{ ip.get_status_display }}</td>
+                    <td>
+                        <span class="status-badge status-{{ ip.status }}">
+                            {{ ip.get_status_display }}
+                        </span>
+                    </td>
                     <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
                     <td>{{ ip.updated_at|date:"g:i A" }}</td>
                 </tr>
