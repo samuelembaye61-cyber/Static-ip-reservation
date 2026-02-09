@@ -9,8 +9,8 @@ class IPAddress(models.Model):
         max_length=20,
         choices=[
             ('dhcp', 'DHCP'),
-            ('available', 'Available (Static Pool)'),
-            ('reserved', 'Reserved (Static In Use)'),
+            ('available', 'Available'),
+            ('reserved', 'Reserved'),
         ],
         default='dhcp'
     )

@@ -9,7 +9,7 @@
 /* body */
 body{
     font-family: Arial, Helvetica, sans-serif;
-    background-color: #f5f7fb;
+    background-color: whitesmoke;
     color: #111827;
 }
 
@@ -27,9 +27,18 @@ header h1 {
   text-align: center;
 }
 
+
 /* Main Layout container */
 main {
   padding: 24px;
+}
+
+/* Container */
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto; 
+  padding: 20px;
 }
 
 section {
@@ -37,7 +46,7 @@ section {
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-  max-width: 1000px;
+  width: 100%;
 }
 
 /* Section title */
@@ -124,6 +133,25 @@ td {
 }
 
 /* Release Button */
+.release-btn {
+  background: #d53e3e;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.2s ease-in-out;
+}
+
+.release-btn:hover {
+  background: #991b1b;
+}
+
+.release-btn:active {
+  transform: scale(0.98);
+}
 
 .status-badge {
   padding: 6px 12px;
@@ -152,7 +180,7 @@ td {
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin: 20px 0 22px;
-  max-width: 1000px;
+  width: 100%;
 }
 
 .card {
@@ -187,4 +215,12 @@ td {
 
 .card.reserved p {
   color: #dc2626;
+}
+
+
+.footer{
+  background-color: #417690;
+  width: 100%;
+  min-height: 200px;
+  margin-top: 44px;
 }

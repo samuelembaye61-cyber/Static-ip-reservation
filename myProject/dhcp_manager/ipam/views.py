@@ -15,6 +15,8 @@ def dhcp_list(request):
         'available_static': available_static,
         'reserved_static': reserved_static,
 
+        # Summary carts
+
         "dhcp_count": dhcp_addresses.count(),
         "available_count": available_static.count(),
         "reserved_count": reserved_static.count(),
@@ -29,6 +31,16 @@ def reserve_ip(request, ip_address_id):
 
     if request.method == "POST" and ip_address.status == "available":
         ip_address.status = "reserved"
+        ip_address.save()
+
+    return redirect("dhcp_list")
+
+
+def release_ip(request, ip_address_id):
+    ip_address = get_object_or_404(IPAddress, id=ip_address_id)
+
+    if request.method == "POST" and ip_address.status == "reserved":
+        ip_address.status = "available"
         ip_address.save()
 
     return redirect("dhcp_list")

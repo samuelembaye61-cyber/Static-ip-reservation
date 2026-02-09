@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- CSS Link -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}? v=2">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <!-- Website title -->
     <title>Static IP Reservation</title>
 </head>
@@ -19,6 +19,7 @@
 
     <!-- Main Content -->
     <main>
+        <div class="container">
         <section class="summary-cards">
             <div class="card dhcp">
                 <h3>Total DHCP</h3>
@@ -117,6 +118,7 @@
                     <th>Status</th>
                     <th>Date</th>
                     <th>Time</th>
+                    <th>Action</th>
                 </tr>
 
                 {% for ip in reserved_static %}
@@ -130,16 +132,26 @@
                     </td>
                     <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
                     <td>{{ ip.updated_at|date:"g:i A" }}</td>
+                    <td class="flex">
+                        <form action="{% url 'release_ip' ip.id %}" method="POST">
+                            {% csrf_token %}
+                            <button type="submit" class="release-btn">Release</button>
+                        </form>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="5">No reserved static IPs found.</td>
+                    <td colspan="6">No reserved static IPs found.</td>
                 </tr>
                 {% endfor %}
             </table>
         </section>
-
+        </div>
     </main>
+
+    <footer class="footer"">
+
+    </footer>
 </body>
 
 </html>
