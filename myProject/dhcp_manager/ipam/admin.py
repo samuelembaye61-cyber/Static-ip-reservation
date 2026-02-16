@@ -3,6 +3,11 @@ from django.contrib import admin
 # import models from IPAddress
 from .models import IPAddress
 
+from django.contrib import admin
+# Login page and admin page title
+admin.site.site_header = "IP Management Admin"
+admin.site.site_title = "IP Admin Login"
+
 # Register your models here.
 
 @admin.register(IPAddress)
