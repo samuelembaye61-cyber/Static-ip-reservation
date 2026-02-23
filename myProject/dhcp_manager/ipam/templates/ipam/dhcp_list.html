@@ -95,6 +95,7 @@
                     <td class="flex">
                         <form action="{% url 'reserve_ip' ip.id %}" method="POST">
                             {% csrf_token %}
+                             <input type="hidden" name="next_section" value="available-section">
                             <button type="submit" class="reserve-btn">Reserve</button>
                         </form>
                     </td>
@@ -135,6 +136,7 @@
                     <td class="flex">
                         <form action="{% url 'release_ip' ip.id %}" method="POST">
                             {% csrf_token %}
+                            <input type="hidden" name="next_section" value="reserved-section">
                             <button type="submit" class="release-btn">Release</button>
                         </form>
                     </td>

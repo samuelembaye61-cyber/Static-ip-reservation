@@ -33,7 +33,11 @@ def reserve_ip(request, ip_address_id):
         ip_address.status = "reserved"
         ip_address.save()
 
-    return redirect("dhcp_list")
+        next_section = request.POST.get("next_section", "")
+        response = redirect("dhcp_list")
+        if next_section:
+            response["Location"] += f"#{next_section}"
+        return response
 
 
 def release_ip(request, ip_address_id):
@@ -43,4 +47,8 @@ def release_ip(request, ip_address_id):
         ip_address.status = "available"
         ip_address.save()
 
-    return redirect("dhcp_list")
+        next_section = request.POST.get("next_section", "")
+        response = redirect("dhcp_list")
+        if next_section:
+            response["Location"] += f"#{next_section}"
+        return response
