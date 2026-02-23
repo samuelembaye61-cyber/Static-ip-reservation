@@ -15,6 +15,9 @@ body{
 
 /* header */
 header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
     background-color: #417690;  
     color: white;
     padding: 18px 24px;
@@ -27,6 +30,13 @@ header h1 {
   font-weight: bold;
   text-align: center;
 }
+
+ /* Admin link button */
+ .admin-link{
+  display: flex;
+  flex-direction: row;
+  justify-content:flex-end;
+ }
 
 
 /* Main Layout container */

@@ -20,153 +20,158 @@
     <!-- Main Content -->
     <main>
         <div class="container">
-        <section class="summary-cards">
-            <div class="card dhcp">
-                <h3>Total DHCP</h3>
-                <p>{{ dhcp_count }}</p>
+            <div class="admin-link">
+                <a href="/admin/">
+                    <button class="reserve-btn">Admin Panel</button>
+                </a>
             </div>
+            <section class="summary-cards">
+                <div class="card dhcp">
+                    <h3>Total DHCP</h3>
+                    <p>{{ dhcp_count }}</p>
+                </div>
 
-            <div class="card available">
-                <h3>Available Static</h3>
-                <p>{{ available_count }}</p>
-            </div>
+                <div class="card available">
+                    <h3>Available Static</h3>
+                    <p>{{ available_count }}</p>
+                </div>
 
-            <div class="card reserved">
-                <h3>Reserved Static</h3>
-                <p>{{ reserved_count }}</p>
-            </div>
-        </section>
-        <!-- DHCP Section -->
-        <section id="dhcp-section">
-            <h2>DHCP Address List</h2>
+                <div class="card reserved">
+                    <h3>Reserved Static</h3>
+                    <p>{{ reserved_count }}</p>
+                </div>
+            </section>
+            <!-- DHCP Section -->
+            <section id="dhcp-section">
+                <h2>DHCP Address List</h2>
 
-            <table border="1" cellpadding="5">
-                <tr>
-                    <th>IP Address</th>
-                    <th>Hostname</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                </tr>
+                <table border="1" cellpadding="5">
+                    <tr>
+                        <th>IP Address</th>
+                        <th>Hostname</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                    </tr>
 
-                {% for ip in dhcp_addresses %}
-                <tr>
-                    <td>{{ ip.ip_address }}</td>
-                    <td>{{ ip.hostname|default:"-" }}</td>
-                    <td>
-                        <span class="status-badge status-{{ ip.status }}">
-                            {{ ip.get_status_display }}
-                        </span>
-                    </td>
-                    <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
-                    <td>{{ ip.updated_at|date:"g:i A" }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5">No DHCP address found.</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </section>
+                    {% for ip in dhcp_addresses %}
+                    <tr>
+                        <td>{{ ip.ip_address }}</td>
+                        <td>{{ ip.hostname|default:"-" }}</td>
+                        <td>
+                            <span class="status-badge status-{{ ip.status }}">
+                                {{ ip.get_status_display }}
+                            </span>
+                        </td>
+                        <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
+                        <td>{{ ip.updated_at|date:"g:i A" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">No DHCP address found.</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </section>
 
-        <!-- Section B Available Static IP Pool -->
-        <section id="available-section" style="margin-top: 30px;">
-            <h2>Available Static IP Pool</h2>
+            <!-- Section B Available Static IP Pool -->
+            <section id="available-section" style="margin-top: 30px;">
+                <h2>Available Static IP Pool</h2>
 
-            <table border="1" cellpadding="5">
-                <tr>
-                    <th>IP Address</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Action</th>
-                </tr>
+                <table border="1" cellpadding="5">
+                    <tr>
+                        <th>IP Address</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Action</th>
+                    </tr>
 
-                {% for ip in available_static %}
-                <tr>
-                    <td>{{ ip.ip_address }}</td>
-                    <td>
-                        <span class="status-badge status-{{ ip.status }}">
-                            {{ ip.get_status_display }}
-                        </span>
-                    </td>
-                    <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
-                    <td>{{ ip.updated_at|date:"g:i A" }}</td>
-                    <td class="flex">
-                        <form action="{% url 'reserve_ip' ip.id %}" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="next_section" value="available-section">
-                            <button type="submit" class="reserve-btn action-btn" data-action="reserve">
-Reserve
-</button>
-                        </form>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5">No available static IPs found.</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </section>
+                    {% for ip in available_static %}
+                    <tr>
+                        <td>{{ ip.ip_address }}</td>
+                        <td>
+                            <span class="status-badge status-{{ ip.status }}">
+                                {{ ip.get_status_display }}
+                            </span>
+                        </td>
+                        <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
+                        <td>{{ ip.updated_at|date:"g:i A" }}</td>
+                        <td class="flex">
+                            <form action="{% url 'reserve_ip' ip.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="next_section" value="available-section">
+                                <button type="submit" class="reserve-btn action-btn" data-action="reserve">
+                                    Reserve
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">No available static IPs found.</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </section>
 
-        <!-- Section C Reserved section -->
-        <section id="reserved-section" style="margin-top: 30px;">
-            <h2>Reserved Static IPs</h2>
+            <!-- Section C Reserved section -->
+            <section id="reserved-section" style="margin-top: 30px;">
+                <h2>Reserved Static IPs</h2>
 
-            <table border="1" cellpadding="5">
-                <tr>
-                    <th>IP Address</th>
-                    <th>Hostname</th>
-                    <th>Status</th>
-                    <th>Date</th>
-                    <th>Time</th>
-                    <th>Action</th>
-                </tr>
+                <table border="1" cellpadding="5">
+                    <tr>
+                        <th>IP Address</th>
+                        <th>Hostname</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Action</th>
+                    </tr>
 
-                {% for ip in reserved_static %}
-                <tr>
-                    <td>{{ ip.ip_address }}</td>
-                    <td>{{ ip.hostname|default:"-" }}</td>
-                    <td>
-                        <span class="status-badge status-{{ ip.status }}">
-                            {{ ip.get_status_display }}
-                        </span>
-                    </td>
-                    <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
-                    <td>{{ ip.updated_at|date:"g:i A" }}</td>
-                    <td class="flex">
-                        <form action="{% url 'release_ip' ip.id %}" method="POST">
-                            {% csrf_token %}
-                            <input type="hidden" name="next_section" value="reserved-section">
-   
-<button type="submit" class="release-btn action-btn" data-action="release">
-Release
-</button>
-                        </form>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="6">No reserved static IPs found.</td>
-                </tr>
-                {% endfor %}
-            </table>
-        </section>
+                    {% for ip in reserved_static %}
+                    <tr>
+                        <td>{{ ip.ip_address }}</td>
+                        <td>{{ ip.hostname|default:"-" }}</td>
+                        <td>
+                            <span class="status-badge status-{{ ip.status }}">
+                                {{ ip.get_status_display }}
+                            </span>
+                        </td>
+                        <td>{{ ip.updated_at|date:"m/d/Y" }}</td>
+                        <td>{{ ip.updated_at|date:"g:i A" }}</td>
+                        <td class="flex">
+                            <form action="{% url 'release_ip' ip.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="next_section" value="reserved-section">
+
+                                <button type="submit" class="release-btn action-btn" data-action="release">
+                                    Release
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">No reserved static IPs found.</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </section>
         </div>
     </main>
 
     <div id="confirmModal" class="modal">
-    <div class="modal-content">
-    <h3 class="Confirm-header">Confirm Action</h3>
-    <p id="modalMessage"></p>
+        <div class="modal-content">
+            <h3 class="Confirm-header">Confirm Action</h3>
+            <p id="modalMessage"></p>
 
-    <div class="modal-buttons">
-      <button id="confirmYes" class="modal-confirm">Yes</button>
-      <button id="confirmNo" class="modal-cancel">Cancel</button>
+            <div class="modal-buttons">
+                <button id="confirmYes" class="modal-confirm">Yes</button>
+                <button id="confirmNo" class="modal-cancel">Cancel</button>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 
     <footer class="footer">
 
