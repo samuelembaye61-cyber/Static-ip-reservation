@@ -52,3 +52,16 @@ def release_ip(request, ip_address_id):
         if next_section:
             response["Location"] += f"#{next_section}"
         return response
+def signup(request):
+    if request.method == "POST":
+        # Handle user registration logic here (e.g., create user, authenticate, etc.)
+        return redirect("dhcp_list")  # Redirect to the DHCP list after successful signup
+    return render(request, 'ipam/signup.html')
+    if userName and password:
+        return (f"Received username: {userName} and password: {password}")
+    elif userName and not password:
+        return (f"Received username: {userName} but no password")
+    if request.method == "GET":
+        return render(request, 'ipam/signup.html')
+
+    
