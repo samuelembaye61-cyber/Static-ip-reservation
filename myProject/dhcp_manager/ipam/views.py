@@ -1,5 +1,7 @@
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.models import UserCreationForm, AuthenticationForm
+from django.contrib import messages
 
 # .models file
 from .models import IPAddress 
@@ -21,9 +23,6 @@ def dhcp_list(request):
         "available_count": available_static.count(),
         "reserved_count": reserved_static.count(),
     })
-
-
-from django.shortcuts import redirect, get_object_or_404
 
 
 def reserve_ip(request, ip_address_id):
@@ -52,16 +51,29 @@ def release_ip(request, ip_address_id):
         if next_section:
             response["Location"] += f"#{next_section}"
         return response
+
+
 def signup(request):
-    if request.method == "POST":
-        # Handle user registration logic here (e.g., create user, authenticate, etc.)
-        return redirect("dhcp_list")  # Redirect to the DHCP list after successful signup
-    return render(request, 'ipam/signup.html')
-    if userName and password:
-        return (f"Received username: {userName} and password: {password}")
-    elif userName and not password:
-        return (f"Received username: {userName} but no password")
-    if request.method == "GET":
-        return render(request, 'ipam/signup.html')
+    signup_section_id = UserCreationForm()
+    login_section_id = AuthenticationForm()
+
+    if request.method != "POST":
+        return redirect("dhcp_list")
+
+    username = (request.POST.get("username") or "").strip()
+    password = request.POST.get("password") or ""
+
+    if not username or not password:
+        messages.error(request, "Username and password are required.")
+    elif User.objects.filter(username=username).exists():
+        messages.error(request, "Username already exists.")
+    else:
+        User.objects.create_user(username=username, password=password)
+        messages.success(request, "User created successfully.")
+
+    response = redirect("dhcp_list")
+    response["Location"] += "#signup-section"
+    return response
+    
 
     
