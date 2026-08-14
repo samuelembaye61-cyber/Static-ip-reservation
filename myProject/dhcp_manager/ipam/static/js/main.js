@@ -43,16 +43,3 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
-function signUp(){
-  const signUpForm = document.getElementById("signup-form");
-  signUpForm.style.display = "block";
-  const loginForm = document.getElementById("login-form");
-  loginForm.style.display = "none";
-  if(loginForm.style.display === "none"){
-    loginForm.style.display = "none";
-    signUpForm.style.display = "block";
-  } else {
-    loginForm.style.display = "block";
-    signUpForm.style.display = "none";
-  }
-}

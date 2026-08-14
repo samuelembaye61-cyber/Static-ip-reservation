@@ -8,6 +8,7 @@ from django.contrib import admin
 admin.site.site_header = "IP Management Admin"
 admin.site.site_title = "IP Admin Login"
 admin.site.index_title = "Welcome to IP Management Admin"
+
 # Register your models here.
 @admin.register(IPAddress)
 class IPAddressAdmin(admin.ModelAdmin):

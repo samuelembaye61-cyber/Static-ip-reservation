@@ -1,8 +1,7 @@
 
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.models import UserCreationForm, AuthenticationForm
 from django.contrib import messages
-
+from django.contrib.auth.models import User
 # .models file
 from .models import IPAddress 
 
@@ -53,27 +52,33 @@ def release_ip(request, ip_address_id):
         return response
 
 
+
+
 def signup(request):
-    signup_section_id = UserCreationForm()
-    login_section_id = AuthenticationForm()
 
-    if request.method != "POST":
-        return redirect("dhcp_list")
+    # show page if GET request
+    if request.method == "GET":
+        return render(request, "ipam/signup.html")
 
+    # POST request (form submitted)
     username = (request.POST.get("username") or "").strip()
     password = request.POST.get("password") or ""
 
+    # validation
     if not username or not password:
         messages.error(request, "Username and password are required.")
-    elif User.objects.filter(username=username).exists():
-        messages.error(request, "Username already exists.")
-    else:
-        User.objects.create_user(username=username, password=password)
-        messages.success(request, "User created successfully.")
+        return redirect("signup")
 
-    response = redirect("dhcp_list")
-    response["Location"] += "#signup-section"
-    return response
+    if User.objects.filter(username=username).exists():
+        messages.error(request, "Username already exists.")
+        return redirect("signup")
+
+    # create user
+    User.objects.create_user(username=username, password=password)
+    messages.success(request, "User created successfully.")
+
+    # redirect after success
+    return redirect("dhcp_list")
     
 
     

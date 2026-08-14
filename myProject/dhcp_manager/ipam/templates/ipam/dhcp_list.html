@@ -19,32 +19,16 @@
 
     <!-- Main Content -->
     <main>
-         <div class="container" style="margin-top: 30px;">
-                <h2>Sign Up</h2>
-                {% if messages %}
-                {% for message in messages %}
-                <p class="{{ message.tags }}">{{ message }}</p>
-                {% endfor %}
-                {% endif %}
-                <a href="{% url 'signup' %}">Sign Up</a>
-                <form action="{% url 'signup' %}" method="POST">
-                    {% csrf_token %}
-                    <div class="form-group">
-                        <label for="username">Username:</label>
-                        <input type="text" id="username" name="username" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password:</label>
-                        <input type="password" id="password" name="password" required>
-                    </div>
-                    <button type="submit" class="reserve-btn action-btn">Sign Up</button>
-                </form>
-
-            </div>
         <div class="container">
             <div class="admin-link">
                 <a href="/admin/">
                     <button class="reserve-btn">Admin Panel</button>
+                </a>
+            </div>
+            <!-- signup link-->
+            <div class="signup-link">
+                <a href="{% url 'signup' %}">
+                    <button class="reserve-btn">Sign Up</button>
                 </a>
             </div>
             <section class="summary-cards">
@@ -181,7 +165,7 @@
             </section>
         </div>
     </main>
-
+    
     <div id="confirmModal" class="modal">
         <div class="modal-content">
             <h3 class="Confirm-header">Confirm Action</h3>
@@ -193,7 +177,6 @@
             </div>
         </div>
     </div>
-
     <footer class="footer">
 
     </footer>

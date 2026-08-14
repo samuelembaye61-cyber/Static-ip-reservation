@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <style>
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f5f7fb;  /*whitesmooke*/
+      color: #111827;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+    }
+    label {
+      margin-top: 10px;
+    }
+    input {
+      padding: 8px;
+      margin-top: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #4CAF50; /* Green */
+      color: white;
+      border: none;
+    }
+    a {
+      margin-top: 15px;
+      color: #4CAF50; /* Green */
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Create an Account</h1>
+
+  <!-- show messages -->
+  {% if messages %}
+    {% for message in messages %}
+      <p>{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+
+  <form method="post" action="{% url 'signup' %}">
+    {% csrf_token %}
+
+    <label>Username</label>
+    <input type="text" name="username" required>
+
+    <label>Password</label>
+    <input type="password" name="password" required>
+    <label>Confirm Password</label>
+    <input type="password" name="confirm_password" required>
+    
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <label>First Name</label>
+    <input type="text" name="first_name" required>
+    
+    <label>Last Name</label>
+    <input type="text" name="last_name" required>
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <a href="{% url 'dhcp_list' %}">Back to Home</a>
+
+</body>
+</html>

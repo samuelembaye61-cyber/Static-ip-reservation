@@ -4,7 +4,8 @@ from .views import dhcp_list, reserve_ip, release_ip, signup
 
 urlpatterns = [
     path('', dhcp_list, name='dhcp_list'),
+    path('signup', signup, name="signup"),
     path("reserve/<int:ip_address_id>/", reserve_ip, name="reserve_ip"),
     path("release/<int:ip_address_id>/", release_ip, name="release_ip"),
-    path("signup/", signup, name="signup"),
+   
 ]
